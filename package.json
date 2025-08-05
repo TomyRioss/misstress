@@ -1,0 +1,30 @@
+{
+  "name": "mistress_app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@prisma/client": "5.14.0",
+    "@tailwindcss/typography": "^0.5.16",
+    "chart.js": "^4.4.0",
+    "next": "15.4.5",
+    "react": "19.1.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "19.1.0",
+    "react-markdown": "^10.1.0",
+    "sonner": "1.0.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.5",
+    "prisma": "5.14.0",
+    "tailwindcss": "^4"
+  }
+}
