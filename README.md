@@ -1,36 +1,149 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 💰 Gestor de Gastos Inteligente
 
-## Getting Started
+Una aplicación web moderna para el control de finanzas personales con funcionalidades avanzadas de análisis y gestión.
 
-First, run the development server:
+## 🚀 Funcionalidades Principales
 
+### 📊 Dashboard Inteligente
+- **Vista general** con estadísticas en tiempo real
+- **Gráficos interactivos** de gastos por categorías
+- **Análisis de tendencias** mensuales y anuales
+- **Modo oscuro/claro** con detección automática del sistema
+
+### 🎯 Sistema de Metas Financieras
+- **Crear y gestionar metas** de ahorro personalizadas
+- **Seguimiento de progreso** con barras visuales
+- **Fechas objetivo** con alertas de vencimiento
+- **Iconos y colores** personalizables para cada meta
+- **Actualización rápida** del progreso
+
+### 🤖 Análisis Inteligente
+- **Insights automáticos** basados en patrones de gasto
+- **Recomendaciones personalizadas** para optimizar finanzas
+- **Predicciones** de gastos futuros
+- **Análisis de tendencias** con alertas inteligentes
+- **Detección de días más costosos** de la semana
+
+### 🔔 Notificaciones Inteligentes
+- **Alertas automáticas** de gastos excesivos
+- **Recordatorios** de metas financieras
+- **Insights diarios** con estadísticas relevantes
+- **Sistema de notificaciones** no leídas
+- **Categorización** por tipo de alerta
+
+### 📊 Exportación de Reportes
+- **Reportes en PDF** y Excel
+- **Múltiples formatos**: mensual, trimestral, anual
+- **Rangos de fechas** personalizables
+- **Reporte rápido** con resumen ejecutivo
+- **Descarga automática** de archivos
+
+### 💳 Gestión de Transacciones
+- **Agregar gastos e ingresos** de forma rápida
+- **Categorización automática** con iconos
+- **Búsqueda y filtros** avanzados
+- **Vista de hoja de cálculo** detallada
+- **Historial mensual** con comparativas
+
+## 🛠️ Tecnologías
+
+- **Frontend**: Next.js 15, React 19, Tailwind CSS 4
+- **Backend**: Next.js API Routes, Prisma ORM
+- **Base de Datos**: PostgreSQL
+- **Gráficos**: Chart.js, React-Chartjs-2
+- **Notificaciones**: Sonner
+- **Iconos**: Emojis nativos para mejor rendimiento
+
+## 🚀 Instalación
+
+1. **Clonar el repositorio**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd mistress_app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Instalar dependencias**
+```bash
+npm install --legacy-peer-deps
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+3. **Configurar base de datos**
+```bash
+# Crear archivo .env con las variables de entorno
+DATABASE_URL="postgresql://user:password@localhost:5432/mistress_app"
+DIRECT_URL="postgresql://user:password@localhost:5432/mistress_app"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Generar cliente de Prisma**
+```bash
+npx prisma generate
+```
 
-## Learn More
+5. **Ejecutar migraciones**
+```bash
+npx prisma migrate dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+6. **Iniciar servidor de desarrollo**
+```bash
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+7. **Abrir en el navegador**
+```
+http://localhost:3000
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📱 Características Avanzadas
 
-## Deploy on Vercel
+### 🎨 Interfaz Moderna
+- **Diseño responsive** para móviles y desktop
+- **Modo oscuro/claro** con transiciones suaves
+- **Animaciones fluidas** y micro-interacciones
+- **Iconografía consistente** con emojis
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🔒 Seguridad
+- **Validación de datos** en frontend y backend
+- **Sanitización** de inputs
+- **Manejo de errores** robusto
+- **Logs de auditoría** para transacciones
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### ⚡ Rendimiento
+- **Optimización de imágenes** automática
+- **Lazy loading** de componentes
+- **Caché inteligente** de datos
+- **Bundle splitting** optimizado
+
+## 🎯 Roadmap
+
+- [ ] **Integración con bancos** para importación automática
+- [ ] **Análisis de gastos recurrentes** con IA
+- [ ] **Sistema de presupuestos** por categoría
+- [ ] **Alertas de límites** de gasto
+- [ ] **Exportación a Google Sheets**
+- [ ] **App móvil** nativa
+- [ ] **Sincronización en la nube**
+- [ ] **Múltiples monedas**
+
+## 🤝 Contribuir
+
+1. Fork el proyecto
+2. Crear una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abrir un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+
+## 🆘 Soporte
+
+Si tienes alguna pregunta o problema, por favor:
+- Abre un issue en GitHub
+- Revisa la documentación
+- Contacta al equipo de desarrollo
+
+---
+
+**¡Disfruta gestionando tus finanzas de forma inteligente! 💰✨**
