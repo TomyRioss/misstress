@@ -1,13 +1,26 @@
-
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider   = "postgresql"
-  url        = env("DATABASE_URL")
-  directUrl  = env("DIRECT_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Expense {
+  id          String          @id @default(uuid())
+  description String?
+  amount      Decimal         @db.Decimal(10, 2)
+  date        DateTime        @default(now())
+  category    ExpenseCategory @default(OTROS)
+  subCategory String?
+  type        EntryType       @default(GASTO)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@index([date])
+  @@index([category])
 }
 
 enum ExpenseCategory {
@@ -27,18 +40,3 @@ enum EntryType {
   INGRESO
   GASTO
 }
-
- model Expense {
-   id          String   @id @default(uuid())
-   description String?
-   amount      Decimal  @db.Decimal(10, 2)
-   date        DateTime @default(now())
-   category    ExpenseCategory @default(OTROS)
-   subCategory String?
-   type        EntryType @default(GASTO)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-   @@index([date])
-   @@index([category])
- }
