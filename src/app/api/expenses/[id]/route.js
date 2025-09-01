@@ -1,12 +1,10 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../lib/prisma';
 
 // GET single expense
 export async function GET(request, { params }) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     const expense = await prisma.expense.findUnique({
       where: { id },
@@ -32,7 +30,7 @@ export async function GET(request, { params }) {
 // PUT update expense
 export async function PUT(request, { params }) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
     const { description, amount, category, subCategory, type, date } = body;
 
@@ -84,7 +82,7 @@ export async function PUT(request, { params }) {
 // DELETE expense
 export async function DELETE(request, { params }) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     await prisma.expense.delete({
       where: { id },

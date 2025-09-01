@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../lib/prisma';
 
 export async function GET() {
   try {
@@ -14,7 +12,7 @@ export async function GET() {
     console.error('Error fetching goals:', error);
     return NextResponse.json(
       { error: 'Error al obtener las metas' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -27,7 +25,7 @@ export async function POST(request) {
     if (!name || !targetAmount) {
       return NextResponse.json(
         { error: 'Nombre y monto objetivo son requeridos' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -47,7 +45,7 @@ export async function POST(request) {
     console.error('Error creating goal:', error);
     return NextResponse.json(
       { error: 'Error al crear la meta' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

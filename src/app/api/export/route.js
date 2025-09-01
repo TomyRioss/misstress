@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../lib/prisma';
 
 export async function POST(request) {
   try {
@@ -79,14 +77,18 @@ export async function POST(request) {
     // Para PDF y Excel, por ahora devolvemos JSON
     // En una implementación real, usarías librerías como jsPDF o ExcelJS
     const response = NextResponse.json(reportData);
-    response.headers.set('Content-Disposition', `attachment; filename="reporte_${type}_${new Date().toISOString().split('T')[0]}.${format}"`);
+    response.headers.set(
+      'Content-Disposition',
+      `attachment; filename="reporte_${type}_${
+        new Date().toISOString().split('T')[0]
+      }.${format}"`,
+    );
     return response;
-
   } catch (error) {
     console.error('Error generating report:', error);
     return NextResponse.json(
       { error: 'Error al generar el reporte' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

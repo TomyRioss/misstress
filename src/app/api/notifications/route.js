@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
 export async function GET() {
   try {
@@ -15,7 +13,7 @@ export async function GET() {
     console.error('Error fetching notifications:', error);
     return NextResponse.json(
       { error: 'Error al obtener las notificaciones' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -28,7 +26,7 @@ export async function POST(request) {
     if (!title || !message) {
       return NextResponse.json(
         { error: 'Título y mensaje son requeridos' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -46,7 +44,7 @@ export async function POST(request) {
     console.error('Error creating notification:', error);
     return NextResponse.json(
       { error: 'Error al crear la notificación' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

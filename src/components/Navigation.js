@@ -24,6 +24,12 @@ const navigationItems = [
     description: 'Metas financieras',
   },
   {
+    name: 'Gastos Recurrentes',
+    href: '/recurring-expenses',
+    icon: '🔄',
+    description: 'Gastos mensuales fijos',
+  },
+  {
     name: 'Hoja de Cálculo',
     href: '/spreadsheet',
     icon: '📋',

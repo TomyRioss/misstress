@@ -23,6 +23,56 @@ model Expense {
   @@index([category])
 }
 
+model FinancialGoal {
+  id            String     @id @default(uuid())
+  name          String
+  description   String?
+  targetAmount  Decimal    @db.Decimal(10, 2)
+  currentAmount Decimal    @default(0) @db.Decimal(10, 2)
+  targetDate    DateTime?
+  status        GoalStatus @default(ACTIVE)
+  color         String     @default("#3B82F6")
+  icon          String     @default("🎯")
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  @@index([status])
+  @@index([targetDate])
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  title     String
+  message   String
+  type      String   @default("INFO")
+  category  String?
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([isRead])
+  @@index([category])
+  @@index([createdAt])
+}
+
+model RecurringExpense {
+  id            String          @id @default(uuid())
+  description   String
+  amount        Decimal         @db.Decimal(10, 2)
+  category      ExpenseCategory @default(OTROS)
+  subCategory   String?
+  frequency     Frequency       @default(MONTHLY)
+  startDate     DateTime        @default(now())
+  endDate       DateTime?
+  isActive      Boolean         @default(true)
+  lastProcessed DateTime?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  @@index([isActive])
+  @@index([startDate])
+  @@index([endDate])
+}
+
 enum ExpenseCategory {
   COMIDA
   ALQUILER
@@ -47,48 +97,9 @@ enum GoalStatus {
   PAUSED
 }
 
- model Expense {
-   id          String   @id @default(uuid())
-   description String?
-   amount      Decimal  @db.Decimal(10, 2)
-   date        DateTime @default(now())
-   category    ExpenseCategory @default(OTROS)
-   subCategory String?
-   type        EntryType @default(GASTO)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-   @@index([date])
-   @@index([category])
- }
-
- model FinancialGoal {
-   id          String   @id @default(uuid())
-   name        String
-   description String?
-   targetAmount Decimal @db.Decimal(10, 2)
-   currentAmount Decimal @db.Decimal(10, 2) @default(0)
-   targetDate   DateTime?
-   status      GoalStatus @default(ACTIVE)
-   color       String   @default("#3B82F6")
-   icon        String   @default("🎯")
-   createdAt   DateTime @default(now())
-   updatedAt   DateTime @updatedAt
-
-   @@index([status])
-   @@index([targetDate])
- }
-
- model Notification {
-   id          String   @id @default(uuid())
-   title       String
-   message     String
-   type        String   @default("INFO") // INFO, WARNING, SUCCESS, ERROR
-   category    String?  // EXPENSE_LIMIT, GOAL_REMINDER, etc.
-   isRead      Boolean  @default(false)
-   createdAt   DateTime @default(now())
-
-   @@index([isRead])
-   @@index([category])
-   @@index([createdAt])
- }
+enum Frequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+}

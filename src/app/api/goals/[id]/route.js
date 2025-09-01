@@ -1,13 +1,20 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../../lib/prisma';
 
 export async function PUT(request, { params }) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
-    const { name, description, targetAmount, currentAmount, targetDate, status, color, icon } = body;
+    const {
+      name,
+      description,
+      targetAmount,
+      currentAmount,
+      targetDate,
+      status,
+      color,
+      icon,
+    } = body;
 
     const goal = await prisma.financialGoal.update({
       where: { id },
@@ -28,14 +35,14 @@ export async function PUT(request, { params }) {
     console.error('Error updating goal:', error);
     return NextResponse.json(
       { error: 'Error al actualizar la meta' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
 export async function DELETE(request, { params }) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     await prisma.financialGoal.delete({
       where: { id },
@@ -46,7 +53,7 @@ export async function DELETE(request, { params }) {
     console.error('Error deleting goal:', error);
     return NextResponse.json(
       { error: 'Error al eliminar la meta' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

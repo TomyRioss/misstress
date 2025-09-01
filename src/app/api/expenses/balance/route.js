@@ -13,6 +13,63 @@ function getMonthRange(date = new Date()) {
   return { monthStart, nextMonthStart };
 }
 
+async function processRecurringExpenses(monthStart) {
+  try {
+    const nextMonthStart = new Date(
+      monthStart.getUTCFullYear(),
+      monthStart.getUTCMonth() + 1,
+      1,
+    );
+
+    // Find all active recurring expenses that should be processed this month
+    const recurringExpenses = await prisma.recurringExpense.findMany({
+      where: {
+        isActive: true,
+        OR: [{ endDate: null }, { endDate: { gte: monthStart } }],
+        startDate: { lte: nextMonthStart },
+      },
+    });
+
+    for (const recurring of recurringExpenses) {
+      // Check if this recurring expense has already been processed for this month
+      const existingExpense = await prisma.expense.findFirst({
+        where: {
+          description: recurring.description,
+          amount: recurring.amount,
+          category: recurring.category,
+          type: 'GASTO',
+          date: {
+            gte: monthStart,
+            lt: nextMonthStart,
+          },
+        },
+      });
+
+      if (!existingExpense) {
+        // Create the expense entry
+        await prisma.expense.create({
+          data: {
+            description: recurring.description,
+            amount: recurring.amount,
+            category: recurring.category,
+            subCategory: recurring.subCategory,
+            type: 'GASTO',
+            date: monthStart,
+          },
+        });
+
+        // Update the lastProcessed date
+        await prisma.recurringExpense.update({
+          where: { id: recurring.id },
+          data: { lastProcessed: new Date() },
+        });
+      }
+    }
+  } catch (error) {
+    console.error('[PROCESS_RECURRING_EXPENSES]', error);
+  }
+}
+
 async function ensureSalaryForMonth(monthStart) {
   // ¿Existe ya un ingreso de salario para este mes?
   const existing = await prisma.expense.findFirst({
@@ -71,6 +128,9 @@ export async function GET(request) {
       monthStart = ms;
       nextMonthStart = nms;
     }
+
+    // Process recurring expenses for this month
+    await processRecurringExpenses(monthStart);
 
     await ensureSalaryForMonth(monthStart);
 
