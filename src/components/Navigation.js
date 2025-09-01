@@ -42,6 +42,12 @@ const navigationItems = [
     description: 'Progreso financiero',
   },
   {
+    name: 'Comparación',
+    href: '/comparison',
+    icon: '⚖️',
+    description: 'Compara meses',
+  },
+  {
     name: 'Asistente IA',
     href: '/chat',
     icon: '🤖',
