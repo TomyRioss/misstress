@@ -7,6 +7,9 @@ import ExpenseChart from '@/components/ExpenseChart';
 import StatsCards from '@/components/StatsCards';
 import RecentTransactions from '@/components/RecentTransactions';
 import DetailedSpreadsheet from '@/components/DetailedSpreadsheet';
+import SmartNotifications from '@/components/SmartNotifications';
+import ReportExporter from '@/components/ReportExporter';
+import SmartExpenseAnalyzer from '@/components/SmartExpenseAnalyzer';
 
 export default function DashboardPage() {
   const [stats, setStats] = useState(null);
@@ -146,9 +149,9 @@ export default function DashboardPage() {
         {/* Content based on view */}
         {view === 'overview' ? (
           /* Charts and Recent Transactions */
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Chart */}
-            <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-gray-200 dark:border-neutral-700 p-6">
+            <div className="lg:col-span-2 bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-gray-200 dark:border-neutral-700 p-6">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                 Gastos por Categoría
               </h2>
@@ -160,15 +163,9 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            {/* Recent Transactions */}
+            {/* Notifications */}
             <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-gray-200 dark:border-neutral-700 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                Transacciones Recientes
-              </h2>
-              <RecentTransactions
-                transactions={recentExpenses}
-                onUpdate={handleExpenseAdded}
-              />
+              <SmartNotifications />
             </div>
           </div>
         ) : (
@@ -183,6 +180,28 @@ export default function DashboardPage() {
             />
           </div>
         )}
+
+        {/* Smart Analysis and Recent Transactions */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-gray-200 dark:border-neutral-700 p-6">
+            <SmartExpenseAnalyzer />
+          </div>
+          
+          <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-gray-200 dark:border-neutral-700 p-6">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+              Transacciones Recientes
+            </h2>
+            <RecentTransactions
+              transactions={recentExpenses}
+              onUpdate={handleExpenseAdded}
+            />
+          </div>
+        </div>
+
+        {/* Report Exporter */}
+        <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-gray-200 dark:border-neutral-700 p-6">
+          <ReportExporter />
+        </div>
       </div>
     </div>
   );

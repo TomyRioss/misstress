@@ -41,6 +41,12 @@ enum EntryType {
   GASTO
 }
 
+enum GoalStatus {
+  ACTIVE
+  COMPLETED
+  PAUSED
+}
+
  model Expense {
    id          String   @id @default(uuid())
    description String?
@@ -54,4 +60,35 @@ enum EntryType {
 
    @@index([date])
    @@index([category])
+ }
+
+ model FinancialGoal {
+   id          String   @id @default(uuid())
+   name        String
+   description String?
+   targetAmount Decimal @db.Decimal(10, 2)
+   currentAmount Decimal @db.Decimal(10, 2) @default(0)
+   targetDate   DateTime?
+   status      GoalStatus @default(ACTIVE)
+   color       String   @default("#3B82F6")
+   icon        String   @default("🎯")
+   createdAt   DateTime @default(now())
+   updatedAt   DateTime @updatedAt
+
+   @@index([status])
+   @@index([targetDate])
+ }
+
+ model Notification {
+   id          String   @id @default(uuid())
+   title       String
+   message     String
+   type        String   @default("INFO") // INFO, WARNING, SUCCESS, ERROR
+   category    String?  // EXPENSE_LIMIT, GOAL_REMINDER, etc.
+   isRead      Boolean  @default(false)
+   createdAt   DateTime @default(now())
+
+   @@index([isRead])
+   @@index([category])
+   @@index([createdAt])
  }

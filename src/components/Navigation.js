@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import ThemeToggle from './ThemeToggle';
 
 const navigationItems = [
   {
@@ -15,6 +16,12 @@ const navigationItems = [
     href: '/transactions',
     icon: '💳',
     description: 'Gestiona gastos e ingresos',
+  },
+  {
+    name: 'Metas',
+    href: '/goals',
+    icon: '🎯',
+    description: 'Metas financieras',
   },
   {
     name: 'Hoja de Cálculo',
@@ -79,12 +86,15 @@ export default function Navigation() {
       {/* Desktop Sidebar */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
         <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white dark:bg-neutral-800 border-r border-gray-200 dark:border-neutral-700 px-6 py-6">
-          <Link href="/dashboard" className="flex h-16 items-center gap-3">
-            <span className="text-2xl">💰</span>
-            <span className="text-xl font-bold text-blue-600">
-              Gestor de Gastos
-            </span>
-          </Link>
+          <div className="flex items-center justify-between">
+            <Link href="/dashboard" className="flex items-center gap-3">
+              <span className="text-2xl">💰</span>
+              <span className="text-xl font-bold text-blue-600">
+                Gestor de Gastos
+              </span>
+            </Link>
+            <ThemeToggle />
+          </div>
 
           <nav className="flex flex-1 flex-col">
             <ul role="list" className="flex flex-1 flex-col gap-y-2">
